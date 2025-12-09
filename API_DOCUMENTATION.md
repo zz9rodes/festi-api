@@ -715,6 +715,102 @@ Get detailed participation result (PROTECTED - owner only).
 
 ---
 
+## 5. Anonymous Messages
+
+### POST /api/users/:userId/messages
+Send an anonymous message to a user (PUBLIC).
+
+**URL Parameters:**
+- `userId`: User UUID (Recipient)
+
+**Request Body:**
+```json
+{
+  "content": "Ceci est un message secret !"
+}
+```
+
+**Success Response (201):**
+```json
+{
+  "message": "Message envoyé avec succès",
+  "data": {
+    "id": 1,
+    "created_at": "2024-12-09T16:00:00.000+01:00"
+  }
+}
+```
+
+**Validation Rules:**
+- `content`: 1-1000 characters, required
+
+---
+
+### GET /api/messages
+List received messages (PROTECTED).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**Success Response (200):**
+```json
+{
+  "messages": [
+    {
+      "id": 1,
+      "content": "Ceci est un message secret !",
+      "created_at": "2024-12-09T16:00:00.000+01:00"
+    }
+  ]
+}
+```
+
+---
+
+### GET /api/messages/:id
+Show a single message (PROTECTED).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**URL Parameters:**
+- `id`: Message ID
+
+**Success Response (200):**
+```json
+{
+  "message": {
+    "id": 1,
+    "content": "Ceci est un message secret !",
+    "created_at": "2024-12-09T16:00:00.000+01:00"
+  }
+}
+```
+
+**Error Response (404):**
+```json
+{
+  "message": "Message non trouvé"
+}
+```
+
+---
+
+### DELETE /api/messages/:id
+Delete a message (PROTECTED).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**URL Parameters:**
+- `id`: Message ID
+
+**Success Response (200):**
+```json
+{
+  "message": "Message supprimé avec succès"
+}
+```
+
+---
+
 ## Error Handling
 
 All error responses follow this format:
