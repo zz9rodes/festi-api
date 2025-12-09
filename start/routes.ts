@@ -74,7 +74,7 @@ router.group(() => {
 // Anonymous Messages Routes (Public)
 // ============================================
 router.group(() => {
-  router.post('/users/:userId/messages', [AnonymousMessagesController, 'store'])
+  router.post('/users/:publicKey/messages', [AnonymousMessagesController, 'store'])
 }).prefix('/api')
 
 // ============================================

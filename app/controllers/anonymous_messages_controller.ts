@@ -10,8 +10,8 @@ export default class AnonymousMessagesController {
      */
     async store({ params, request, response }: HttpContext) {
         try {
-            const recipientId = params.userId
-            const user = await User.find(recipientId)
+            const publicKey = params.publicKey
+            const user = await User.findBy('publicKey', publicKey)
 
             if (!user) {
                 return response.status(404).json({

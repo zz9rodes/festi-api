@@ -35,6 +35,7 @@ export default class AuthController {
           id: user.id,
           email: user.email,
           display_name: user.fullName,
+          public_key: user.publicKey,
         },
       })
     } catch (error) {
@@ -74,6 +75,7 @@ export default class AuthController {
           id: user.id,
           email: user.email,
           display_name: user.fullName,
+          public_key: user.publicKey,
         },
       })
     } catch (error) {
@@ -136,6 +138,7 @@ export default class AuthController {
           id: user.id,
           email: user.email,
           display_name: user.fullName,
+          public_key: user.publicKey,
           created_at: user.createdAt.toISO(),
         },
       })

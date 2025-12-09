@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, beforeCreate } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import AnonymousMessage from '#models/anonymous_message'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
@@ -21,6 +21,18 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @column()
   declare email: string
+
+  @column()
+  declare publicKey: string
+
+  @beforeCreate()
+  static async generatePublicKey(user: User) {
+    if (!user.publicKey) {
+      const random = Math.floor(100000 + Math.random() * 900000)
+      const prefix = user.email.substring(0, 6)
+      user.publicKey = `${prefix}-${random}`
+    }
+  }
 
   @column({ serializeAs: null })
   declare password: string

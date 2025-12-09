@@ -78,26 +78,27 @@ Create a new user account.
   "password": "securePassword123",
   "display_name": "Jean Dupont"
 }
-\`\`\`
+```
 
 **Success Response (201):**
-\`\`\`json
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "user": {
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "email": "user@example.com",
-    "display_name": "Jean Dupont"
+    "display_name": "Jean Dupont",
+    "public_key": "user6-123456"
   }
 }
-\`\`\`
+```
 
 **Error Response (400):**
-\`\`\`json
+```json
 {
   "message": "Cet email est déjà utilisé"
 }
-\`\`\`
+```
 
 **Validation Rules:**
 - `email`: Valid email format, unique
@@ -110,31 +111,32 @@ Create a new user account.
 Authenticate an existing user.
 
 **Request Body:**
-\`\`\`json
+```json
 {
   "email": "user@example.com",
   "password": "securePassword123"
 }
-\`\`\`
+```
 
 **Success Response (200):**
-\`\`\`json
+```json
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "user": {
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "email": "user@example.com",
-    "display_name": "Jean Dupont"
+    "display_name": "Jean Dupont",
+    "public_key": "user6-123456"
   }
 }
-\`\`\`
+```
 
 **Error Response (401):**
-\`\`\`json
+```json
 {
   "message": "Email ou mot de passe incorrect"
 }
-\`\`\`
+```
 
 ---
 
@@ -164,6 +166,7 @@ Get the authenticated user's profile.
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "email": "user@example.com",
     "display_name": "Jean Dupont",
+    "public_key": "user6-123456",
     "created_at": "2024-12-01T10:00:00Z"
   }
 }
@@ -717,11 +720,11 @@ Get detailed participation result (PROTECTED - owner only).
 
 ## 5. Anonymous Messages
 
-### POST /api/users/:userId/messages
+### POST /api/users/:publicKey/messages
 Send an anonymous message to a user (PUBLIC).
 
 **URL Parameters:**
-- `userId`: User UUID (Recipient)
+- `publicKey`: User Public Key (Recipient)
 
 **Request Body:**
 ```json
