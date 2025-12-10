@@ -85,6 +85,7 @@ export default class QuestionsController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Question store error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la création de la question',
@@ -164,6 +165,7 @@ export default class QuestionsController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Question update error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la mise à jour de la question',
@@ -202,6 +204,7 @@ export default class QuestionsController {
                 message: 'Question supprimée avec succès',
             })
         } catch (error) {
+            throw error
             console.error('Question destroy error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la suppression de la question',

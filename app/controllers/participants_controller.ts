@@ -86,6 +86,7 @@ export default class ParticipantsController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Participate error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la soumission du quiz',
@@ -154,6 +155,7 @@ export default class ParticipantsController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Participation show error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la récupération de la participation',
@@ -229,6 +231,7 @@ export default class ParticipantsController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Participation details error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la récupération des détails de la participation',

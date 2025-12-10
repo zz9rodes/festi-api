@@ -115,6 +115,7 @@ export default class QuizzesController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Quiz store error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la création du quiz',
@@ -162,6 +163,7 @@ export default class QuizzesController {
                 },
             })
         } catch (error) {
+            throw error
             console.error('Quiz update error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la mise à jour du quiz',
@@ -200,6 +202,7 @@ export default class QuizzesController {
                 message: 'Quiz supprimé avec succès',
             })
         } catch (error) {
+            throw error
             console.error('Quiz destroy error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la suppression du quiz',
@@ -325,6 +328,7 @@ return response.status(200).json({
             // })
 
         } catch (error) {
+            throw error
             console.error('Quiz stats error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la récupération des statistiques',
@@ -369,6 +373,7 @@ return response.status(200).json({
             })
 
         } catch (error) {
+            throw error
             console.error('Quiz participants error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la récupération des participants',
@@ -413,6 +418,7 @@ return response.status(200).json({
                 },
             })
         } catch (error) {
+            throw error
             console.error('Quiz play error:', error)
             return response.status(500).json({
                 message: 'Erreur lors de la récupération du quiz',

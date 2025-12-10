@@ -40,6 +40,7 @@ export default class AuthController {
         },
       })
     } catch (error) {
+      throw error
       console.error('Signup error:', error)
       return response.status(500).json({
         message: 'Erreur lors de la création du compte',
@@ -112,6 +113,7 @@ export default class AuthController {
         message: 'Déconnexion réussie',
       })
     } catch (error) {
+      throw error
       console.error('Logout error:', error)
       return response.status(500).json({
         message: 'Erreur lors de la déconnexion',
@@ -146,6 +148,7 @@ export default class AuthController {
         },
       })
     } catch (error) {
+      throw error
       console.error('Profile error:', error)
       return response.status(500).json({
         message: 'Erreur lors de la récupération du profil',
@@ -191,6 +194,7 @@ export default class AuthController {
         },
       })
     } catch (error) {
+      throw error
       console.error('Update profile error:', error)
       return response.status(500).json({
         message: 'Erreur lors de la mise à jour du profil',
@@ -223,6 +227,7 @@ export default class AuthController {
         },
       })
     } catch (error) {
+      throw error
       console.error('Show public profile error:', error)
       return response.status(500).json({
         message: 'Erreur lors de la récupération du profil public',

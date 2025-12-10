@@ -97,7 +97,9 @@ Create a new user account.
 **Error Response (400):**
 ```json
 {
-  "message": "Cet email est déjà utilisé"
+  "error": true,
+  "message": "Cet email est déjà utilisé",
+  "code": "DUPLICATE_EMAIL"
 }
 ```
 
@@ -136,7 +138,9 @@ Authenticate an existing user.
 **Error Response (401):**
 ```json
 {
-  "message": "Email ou mot de passe incorrect"
+  "error": true,
+  "message": "Email ou mot de passe incorrect",
+  "code": "INVALID_CREDENTIALS"
 }
 ```
 
@@ -178,7 +182,9 @@ Get the authenticated user's profile.
 **Error Response (401):**
 \`\`\`json
 {
-  "message": "Non authentifié"
+  "error": true,
+  "message": "Non authentifié",
+  "code": "UNAUTHORIZED"
 }
 \`\`\`
 
@@ -259,7 +265,9 @@ Get public user profile by public key (PUBLIC).
 **Error Response (404):**
 ```json
 {
-  "message": "Utilisateur non trouvé"
+  "error": true,
+  "message": "Utilisateur non trouvé",
+  "code": "NOT_FOUND"
 }
 ```
 
@@ -338,7 +346,9 @@ Get a single quiz by ID (for the creator/owner).
 **Error Response (404):**
 \`\`\`json
 {
-  "message": "Quiz non trouvé"
+  "error": true,
+  "message": "Quiz non trouvé",
+  "code": "NOT_FOUND"
 }
 \`\`\`
 
@@ -435,7 +445,9 @@ Update a quiz (owner only).
 **Error Response (403):**
 \`\`\`json
 {
-  "message": "Vous n'êtes pas autorisé à modifier ce quiz"
+  "error": true,
+  "message": "Vous n'êtes pas autorisé à modifier ce quiz",
+  "code": "FORBIDDEN"
 }
 \`\`\`
 
@@ -771,7 +783,9 @@ Get detailed participation result (PROTECTED - owner only).
 **Error Response (403):**
 ```json
 {
-  "message": "Vous n'êtes pas autorisé à voir les détails de cette participation"
+  "error": true,
+  "message": "Vous n'êtes pas autorisé à voir les détails de cette participation",
+  "code": "FORBIDDEN"
 }
 ```
 
@@ -850,7 +864,9 @@ Show a single message (PROTECTED).
 **Error Response (404):**
 ```json
 {
-  "message": "Message non trouvé"
+  "error": true,
+  "message": "Message non trouvé",
+  "code": "NOT_FOUND"
 }
 ```
 
@@ -879,6 +895,7 @@ All error responses follow this format:
 
 \`\`\`json
 {
+  "error": true,
   "message": "Description de l'erreur",
   "code": "ERROR_CODE",
   "details": {}
