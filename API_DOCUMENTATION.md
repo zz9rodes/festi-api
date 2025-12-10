@@ -88,7 +88,8 @@ Create a new user account.
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "email": "user@example.com",
     "display_name": "Jean Dupont",
-    "public_key": "user6-123456"
+    "public_key": "user6-123456",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=random"
   }
 }
 ```
@@ -126,7 +127,8 @@ Authenticate an existing user.
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "email": "user@example.com",
     "display_name": "Jean Dupont",
-    "public_key": "user6-123456"
+    "public_key": "user6-123456",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=random"
   }
 }
 ```
@@ -167,6 +169,7 @@ Get the authenticated user's profile.
     "email": "user@example.com",
     "display_name": "Jean Dupont",
     "public_key": "user6-123456",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=random",
     "created_at": "2024-12-01T10:00:00Z"
   }
 }
@@ -187,22 +190,78 @@ Update the authenticated user's profile.
 **Headers:** `Authorization: Bearer <token>` (required)
 
 **Request Body:**
-\`\`\`json
+```json
 {
-  "display_name": "Jean-Pierre Dupont"
+  "display_name": "Jean-Pierre Dupont",
+  "avatar": "https://example.com/new-avatar.png"
 }
-\`\`\`
+```
 
 **Success Response (200):**
-\`\`\`json
+```json
 {
   "user": {
     "id": "550e8400-e29b-41d4-a716-446655440000",
     "email": "user@example.com",
-    "display_name": "Jean-Pierre Dupont"
+    "display_name": "Jean-Pierre Dupont",
+    "public_key": "user6-123456",
+    "avatar": "https://example.com/new-avatar.png"
   }
 }
-\`\`\`
+```
+
+---
+
+### GET /api/auth/users/:publicKey
+Get a user's public profile information by their public key.
+
+**URL Parameters:**
+- `publicKey`: The public key of the user (e.g., `user6-123456`).
+
+**Success Response (200):**
+```json
+{
+  "user": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "display_name": "Jean Dupont",
+    "public_key": "user6-123456",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=random"
+  }
+}
+```
+
+**Error Response (404):**
+```json
+{
+  "message": "Utilisateur non trouvé"
+}
+```
+
+---
+
+### GET /api/auth/users/:publicKey
+Get public user profile by public key (PUBLIC).
+
+**URL Parameters:**
+- `publicKey`: User Public Key
+
+**Success Response (200):**
+```json
+{
+  "user": {
+    "display_name": "Jean Dupont",
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=random",
+    "public_key": "user6-123456"
+  }
+}
+```
+
+**Error Response (404):**
+```json
+{
+  "message": "Utilisateur non trouvé"
+}
+```
 
 ---
 

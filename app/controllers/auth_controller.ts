@@ -36,6 +36,7 @@ export default class AuthController {
           email: user.email,
           display_name: user.fullName,
           public_key: user.publicKey,
+          avatar: user.avatar,
         },
       })
     } catch (error) {
@@ -76,6 +77,7 @@ export default class AuthController {
           email: user.email,
           display_name: user.fullName,
           public_key: user.publicKey,
+          avatar: user.avatar,
         },
       })
     } catch (error) {
@@ -139,6 +141,7 @@ export default class AuthController {
           email: user.email,
           display_name: user.fullName,
           public_key: user.publicKey,
+          avatar: user.avatar,
           created_at: user.createdAt.toISO(),
         },
       })
@@ -172,6 +175,10 @@ export default class AuthController {
         user.fullName = payload.display_name
       }
 
+      if (payload.avatar) {
+        user.avatar = payload.avatar
+      }
+
       await user.save()
 
       return response.status(200).json({
@@ -179,6 +186,8 @@ export default class AuthController {
           id: user.id,
           email: user.email,
           display_name: user.fullName,
+          public_key: user.publicKey,
+          avatar: user.avatar,
         },
       })
     } catch (error) {
@@ -187,6 +196,37 @@ export default class AuthController {
         message: 'Erreur lors de la mise à jour du profil',
         code: 'INTERNAL_ERROR',
         details: error.messages || error.message,
+      })
+    }
+  }
+
+  /**
+   * GET /api/users/:publicKey
+   * Get public user profile by public key
+   */
+  async showByPublicKey({ params, response }: HttpContext) {
+    try {
+      const user = await User.findBy('publicKey', params.publicKey)
+
+      if (!user) {
+        return response.status(404).json({
+          message: 'Utilisateur non trouvé',
+          code: 'NOT_FOUND',
+        })
+      }
+
+      return response.status(200).json({
+        user: {
+          display_name: user.fullName,
+          avatar: user.avatar,
+          public_key: user.publicKey,
+        },
+      })
+    } catch (error) {
+      console.error('Show public profile error:', error)
+      return response.status(500).json({
+        message: 'Erreur lors de la récupération du profil public',
+        code: 'INTERNAL_ERROR',
       })
     }
   }

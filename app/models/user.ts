@@ -25,12 +25,20 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare publicKey: string
 
+  @column()
+  declare avatar: string | null
+
   @beforeCreate()
-  static async generatePublicKey(user: User) {
+  static async generateAttributes(user: User) {
     if (!user.publicKey) {
       const random = Math.floor(100000 + Math.random() * 900000)
       const prefix = user.email.substring(0, 6)
       user.publicKey = `${prefix}-${random}`
+    }
+
+    if (!user.avatar) {
+      const seed = Math.random().toString(36).substring(7)
+      user.avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`
     }
   }
 

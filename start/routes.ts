@@ -25,6 +25,7 @@ router.group(() => {
   router.post('/logout', [AuthController, 'logout']).use(middleware.auth())
   router.get('/profile', [AuthController, 'profile']).use(middleware.auth())
   router.put('/profile', [AuthController, 'updateProfile']).use(middleware.auth())
+  router.get('/users/:publicKey', [AuthController, 'showByPublicKey'])
 }).prefix('/api/auth')
 
 // ============================================
@@ -75,6 +76,7 @@ router.group(() => {
 // ============================================
 router.group(() => {
   router.post('/users/:publicKey/messages', [AnonymousMessagesController, 'store'])
+  router.get('/users/:publicKey', [AuthController, 'showByPublicKey'])
 }).prefix('/api')
 
 // ============================================

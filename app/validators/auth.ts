@@ -26,6 +26,7 @@ export const loginValidator = vine.compile(
  */
 export const updateProfileValidator = vine.compile(
     vine.object({
-        display_name: vine.string().minLength(2).maxLength(100).optional(),
+        display_name: vine.string().trim().minLength(2).maxLength(100).optional(),
+        avatar: vine.string().url().optional(),
     })
 )
