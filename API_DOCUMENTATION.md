@@ -889,6 +889,159 @@ Delete a message (PROTECTED).
 
 ---
 
+## 6. Admin Dashboard
+
+> [!IMPORTANT]
+> All admin routes require authentication AND admin privileges (`is_admin: true`).
+
+### GET /api/admin/users
+List all users in the system (ADMIN ONLY).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**Success Response (200):**
+```json
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "display_name": "Jean Dupont",
+      "public_key": "user6-123456",
+      "avatar": "https://api.dicebear.com/...",
+      "is_admin": false,
+      "created_at": "2024-12-01T10:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### GET /api/admin/quizzes
+List all quizzes in the system (ADMIN ONLY).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**Success Response (200):**
+```json
+{
+  "quizzes": [
+    {
+      "id": "quiz-uuid-1",
+      "title": "Quiz de Noël 2024",
+      "creator": {
+        "id": 1,
+        "display_name": "Jean Dupont",
+        "email": "user@example.com"
+      },
+      "created_at": "2024-12-01T10:00:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### GET /api/admin/quizzes/:id
+Get quiz details with questions/options (ADMIN ONLY).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**URL Parameters:**
+- `id`: Quiz UUID
+
+**Success Response (200):**
+```json
+{
+  "quiz": {
+    "id": "quiz-uuid-1",
+    "title": "Quiz de Noël 2024",
+    "creator": {
+      "id": 1,
+      "display_name": "Jean Dupont",
+      "email": "user@example.com"
+    },
+    "questions": [
+      {
+        "id": "question-uuid-1",
+        "question_text": "Quelle est la capitale de la France ?",
+        "options": ["Londres", "Paris", "Berlin", "Madrid"],
+        "correct_option_index": 1,
+        "order_index": 0
+      }
+    ],
+    "created_at": "2024-12-01T10:00:00Z"
+  }
+}
+```
+
+---
+
+### GET /api/admin/participations
+List all participations in the system (ADMIN ONLY).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**Success Response (200):**
+```json
+{
+  "participations": [
+    {
+      "id": "participation-uuid",
+      "participant_name": "Marie",
+      "quiz": {
+        "id": "quiz-uuid-1",
+        "title": "Quiz de Noël 2024"
+      },
+      "score": 3,
+      "total_questions": 5,
+      "percentage": 60,
+      "completed_at": "2024-12-07T10:30:00Z"
+    }
+  ]
+}
+```
+
+---
+
+### GET /api/admin/users/:publicKey/messages
+List messages for a user (ADMIN OR OWNER).
+
+**Headers:** `Authorization: Bearer <token>` (required)
+
+**URL Parameters:**
+- `publicKey`: User's public key
+
+**Success Response (200):**
+```json
+{
+  "user": {
+    "id": 1,
+    "display_name": "Jean Dupont",
+    "public_key": "user6-123456"
+  },
+  "messages": [
+    {
+      "id": 1,
+      "content": "Ceci est un message secret !",
+      "created_at": "2024-12-09T16:00:00Z"
+    }
+  ]
+}
+```
+
+**Error Response (403):**
+```json
+{
+  "error": true,
+  "message": "Accès non autorisé",
+  "code": "FORBIDDEN"
+}
+```
+
+---
+
 ## Error Handling
 
 All error responses follow this format:

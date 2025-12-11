@@ -33,6 +33,7 @@ export default class AuthController {
         token: token.value!.release(),
         user: {
           id: user.id,
+          is_admin: user.isAdmin,
           email: user.email,
           display_name: user.fullName,
           public_key: user.publicKey,
@@ -75,6 +76,7 @@ export default class AuthController {
         token: token.value!.release(),
         user: {
           id: user.id,
+          is_admin: user.isAdmin,
           email: user.email,
           display_name: user.fullName,
           public_key: user.publicKey,
@@ -137,9 +139,12 @@ export default class AuthController {
         })
       }
 
+      console.log(user)
+
       return response.status(200).json({
         user: {
           id: user.id,
+          is_admin: user.isAdmin,
           email: user.email,
           display_name: user.fullName,
           public_key: user.publicKey,
@@ -188,6 +193,7 @@ export default class AuthController {
         user: {
           id: user.id,
           email: user.email,
+          is_admin: user.isAdmin,
           display_name: user.fullName,
           public_key: user.publicKey,
           avatar: user.avatar,

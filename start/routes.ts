@@ -88,9 +88,23 @@ router.group(() => {
   router.delete('/messages/:id', [AnonymousMessagesController, 'destroy'])
 }).prefix('/api').use(middleware.auth())
 
+// ============================================
+// Admin Dashboard Routes (Protected - Admin Only)
+// ============================================
+import DashboardController from '#controllers/dashboard_controller'
+
+router.group(() => {
+  router.get('/users', [DashboardController, 'listUsers'])
+  router.get('/quizzes', [DashboardController, 'listQuizzes'])
+  router.get('/quizzes/:id', [DashboardController, 'showQuizDetails'])
+  router.get('/participations', [DashboardController, 'listParticipations'])
+  router.get('/users/:publicKey/messages', [DashboardController, 'listUserMessages'])
+}).prefix('/api/admin').use([middleware.auth(), middleware.adminAuth()])
+
 // 404 handler
 router.any('*', async ({ response }) => {
   return response.status(404).json({
+    error: true,
     message: 'Route non trouvée',
     code: 'NOT_FOUND',
   })

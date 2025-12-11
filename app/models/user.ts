@@ -28,6 +28,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare avatar: string | null
 
+  @column()
+  declare isAdmin: boolean
+
   @beforeCreate()
   static async generateAttributes(user: User) {
     if (!user.publicKey) {
